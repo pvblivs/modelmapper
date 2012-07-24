@@ -23,6 +23,7 @@ import java.util.Set;
 
 import org.modelmapper.TypeMap;
 import org.modelmapper.config.Configuration;
+import org.modelmapper.internal.PropertiesMatcher.MatchStrength;
 import org.modelmapper.internal.converter.ConverterStore;
 import org.modelmapper.internal.util.Iterables;
 import org.modelmapper.internal.util.Primitives;
@@ -31,7 +32,6 @@ import org.modelmapper.spi.ConditionalConverter;
 import org.modelmapper.spi.ConditionalConverter.MatchResult;
 import org.modelmapper.spi.Mapping;
 import org.modelmapper.spi.MatchingStrategy;
-import org.modelmapper.spi.NameableType;
 import org.modelmapper.spi.PropertyInfo;
 
 /**
@@ -58,6 +58,7 @@ class PropertyMappingBuilder<S, D> {
   private final List<PropertyMappingImpl> mappings = new ArrayList<PropertyMappingImpl>();
   /** Mappings for which the source accessor type was not verified by the supported converter */
   private final List<PropertyMappingImpl> unverifiedMappings = new ArrayList<PropertyMappingImpl>();
+  private final PropertiesMatcher propertiesMatcher;
 
   PropertyMappingBuilder(TypeMapImpl<S, D> typeMap, TypeMapStore typeMapStore,
       ConverterStore converterStore) {
@@ -68,6 +69,7 @@ class PropertyMappingBuilder<S, D> {
     sourceTypeInfo = TypeInfoRegistry.typeInfoFor(typeMap.getSourceType(), configuration);
     matchingStrategy = configuration.getMatchingStrategy();
     propertyNameInfo = new PropertyNameInfoImpl(typeMap.getSourceType(), configuration);
+    propertiesMatcher = new PropertiesMatcher(configuration);
   }
 
   void build() {
@@ -165,74 +167,42 @@ class PropertyMappingBuilder<S, D> {
 
   /**
    * Disambiguates the captured mappings by looking for the mapping with property tokens that most
-   * closely match the destination. Match closeness is calculated as the total number of matched
-   * source and destination tokens / the total number of source and destination tokens. Currently
-   * this algorithm does not consider class name tokens.
+   * closely match the destination.
+   * 
+   * Mappings with exact matches take priority over those which do not. Mappings with a completely
+   * matched path in the same order take priority over paths which just happen to match in some
+   * order. Otherwise - the mapping with the most matches wins.
    * 
    * @return closest matching mapping, else {@code null} if one could not be determined
    */
   MappingImpl disambiguateMappings() {
-    double maxMatchRatio = -1;
-    // Whether multiple mappings have the same max ratio
-    boolean multipleMax = false;
-    MappingImpl closestMapping = null;
+    int bestScore = Integer.MIN_VALUE;
+    PropertyMappingImpl closestMatch = null;
+    boolean singleMatch = true;
 
     for (PropertyMappingImpl mapping : mappings) {
-      double matches = 0, totalSourceTokens = 0, totalDestTokens = 0;
-      String[][] allSourceTokens = new String[mapping.getSourceProperties().size()][];
-      boolean[][] sourceMatches = new boolean[allSourceTokens.length][];
+      List<? extends PropertyInfo> sourceProperties = mapping.getSourceProperties();
+      List<? extends PropertyInfo> destinationProperties = mapping.getDestinationProperties();
 
-      // Build source tokens
-      for (int i = 0; i < mapping.getSourceProperties().size(); i++) {
-        PropertyInfo source = mapping.getSourceProperties().get(i);
-        NameableType nameableType = NameableType.forPropertyType(source.getPropertyType());
-        allSourceTokens[i] = configuration.getSourceNameTokenizer().tokenize(source.getName(),
-            nameableType);
-        sourceMatches[i] = new boolean[allSourceTokens[i].length];
-        totalSourceTokens += allSourceTokens[i].length;
-      }
+      List<MatchStrength> combinedStrengths = new ArrayList<MatchStrength>();
+      combinedStrengths.addAll(propertiesMatcher.match(sourceProperties, destinationProperties));
+      // combinedStrengths.addAll(propertiesMatcher.match(destinationProperties,
+      // sourceProperties));
 
-      for (int destIndex = 0; destIndex < mapping.getDestinationProperties().size(); destIndex++) {
-        PropertyInfo dest = mapping.getDestinationProperties().get(destIndex);
-        NameableType nameableType = NameableType.forPropertyType(dest.getPropertyType());
-        String[] destTokens = configuration.getDestinationNameTokenizer().tokenize(dest.getName(),
-            nameableType);
-        totalDestTokens += destTokens.length;
+      int mappingScore = 0;
+      for (MatchStrength matchStrength : combinedStrengths)
+        mappingScore -= matchStrength.getPriority();
 
-        for (String destToken : destTokens) {
-          boolean matched = false;
-
-          for (int i = 0; i < allSourceTokens.length && !matched; i++) {
-            String[] sourceTokens = allSourceTokens[i];
-
-            for (int j = 0; j < sourceTokens.length && !matched; j++) {
-              if (sourceTokens[j].equalsIgnoreCase(destToken)) {
-                matched = true;
-                matches++;
-
-                // Prevents the same source token from being counted twice
-                if (!sourceMatches[i][j]) {
-                  sourceMatches[i][j] = true;
-                  matches++;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      double matchRatio = matches / (totalSourceTokens + totalDestTokens);
-      if (matchRatio == maxMatchRatio)
-        multipleMax = true;
-
-      if (matchRatio > maxMatchRatio) {
-        maxMatchRatio = matchRatio;
-        closestMapping = mapping;
-        multipleMax = false;
+      if (mappingScore > bestScore) {
+        closestMatch = mapping;
+        bestScore = mappingScore;
+        singleMatch = true;
+      } else if (mappingScore == bestScore) {
+        singleMatch = false;
       }
     }
 
-    return multipleMax ? null : closestMapping;
+    return singleMatch ? closestMatch : null;
   }
 
   /**
