@@ -1,0 +1,138 @@
+.masthead {
+padding-top: 36px;
+}
+
+.masthead h1 {
+margin-bottom: 18px;
+}
+
+.masthead h1, .masthead p {
+text-align: center;
+}
+
+.jumbotron {
+position: relative;
+}
+
+.jumbotron h1 {
+margin-bottom: 9px;
+font-size: 81px;
+font-weight: bold;
+letter-spacing: -1px;
+line-height: 1;
+}
+
+.jumbotron p {
+margin-bottom: 18px;
+font-weight: 300;
+}
+
+.jumbotron .btn-large {
+font-size: 20px;
+font-weight: normal;
+padding: 14px 24px;
+margin-right: 10px;
+-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+}
+
+.masthead p {
+margin-left: 5%;
+margin-right: 5%;
+font-size: 30px;
+line-height: 36px;
+}
+
+.red {
+  color: #149686;
+}
+
+
+
+
+
+
+hr.soften {
+height: 1px;
+margin: 30px;
+background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+border: 0;
+}
+
+
+.marketing h1 {
+margin: 36px 0 27px;
+font-size: 35px;
+font-weight: 300;
+text-align: center;
+}
+
+.marketing p {
+margin-right: 10px;
+line-height: 19px;
+}
+.marketing-byline {
+margin: -18px 0 27px;
+font-size: 18px;
+font-weight: 300;
+line-height: 24px;
+color: #999;
+text-align: center;
+}
+
+.marketing .bs-icon {
+float: left;
+margin: 7px 10px 0 0;
+opacity: .8;
+}
+
+
+.marketing h2 {
+font-size: 22px;
+}
+.marketing h2, .marketing h3 {
+font-weight: 300;
+}
+
+
+.description p {
+font-size: 13pt;
+line-height: 18pt;
+font-weight: 200;
+text-align: left;
+}
+
+
+
+
+.bs-links {
+margin: 36px 0;
+}
+
+.bs-icon {
+float: left;
+margin: 7px 10px 0 0;
+opacity: .8;
+}
+
+.quick-links:first-child {
+min-height: 0;
+}
+.quick-links {
+min-height: 30px;
+margin: 0;
+padding: 5px 20px;
+list-style: none;
+text-align: center;
+overflow: hidden;
+}
+
+.quick-links li {
+display: inline;
+margin: 0 8px;
+color: #999;
+}
