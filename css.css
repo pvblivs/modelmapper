@@ -1,87 +1,207 @@
-.masthead {
-padding-top: 36px;
+/* Body and structure */
+
+body {
+  position: relative;
+  padding-top: 40px;
 }
 
-.masthead h1 {
-margin-bottom: 18px;
+h3 code {
+  font-size: 14px;
+  font-weight: normal;
 }
 
-.masthead h1, .masthead p {
-text-align: center;
+/* Navbar */
+
+/*body > .navbar {
+  font-size: 13px;
 }
+*/
+
+/* Jumbotron */
 
 .jumbotron {
-position: relative;
+  position: relative;
+  padding: 40px 0;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
+  background: #072750 url(assets/linen1.png);
 }
 
 .jumbotron h1 {
-margin-bottom: 9px;
-font-size: 81px;
-font-weight: bold;
-letter-spacing: -1px;
-line-height: 1;
+  font-size: 80px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
 }
 
 .jumbotron p {
-margin-bottom: 18px;
-font-weight: 300;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 30px;
+  margin-bottom: 30px;
 }
 
-.jumbotron .btn-large {
-font-size: 20px;
-font-weight: normal;
-padding: 14px 24px;
-margin-right: 10px;
--webkit-border-radius: 6px;
--moz-border-radius: 6px;
-border-radius: 6px;
+/* Big buttons */
+.masthead .btn {
+  padding: 12px 18px;
+  font-size: 24px;
+  font-weight: 200;
+  color: #fff;
+  border: 0;
+}
+
+.btn-orange { 
+  background-color: #F25D07; 
+  background-image: -moz-linear-gradient(top, #F25D07, #BF3604); 
+  background-image: -ms-linear-gradient(top, #F25D07, #BF3604); 
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#F25D07), to(#BF3604)); 
+  background-image: -webkit-linear-gradient(top, #F25D07, #BF3604); 
+  background-image: -o-linear-gradient(top, #F25D07, #BF3604); 
+  background-image: linear-gradient(top, #F25D07, #BF3604); 
+  background-repeat: repeat-x; 
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F25D07', endColorstr='#BF3604', GradientType=0); 
+  border-color: #BF3604 #BF3604 #F58D51; 
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); 
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); 
+}  
+
+.btn-orange, .btn-orange:hover { 
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); 
+  color: #ffffff; 
+}
+
+.btn-orange:hover, 
+.btn-orange:active, 
+.btn-orange.active, 
+.btn-orange.disabled, 
+.btn-orange[disabled] { 
+  background-color: #BF3604; 
+}
+
+/* Jumbotron and Masthead links */
+.jumbotron a {
+  color: #fff;
+  color: rgba(255,255,255,.65);
+  -webkit-transition: all .2s ease-in-out;
+     -moz-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+
+.jumbotron a:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255,255,255,.25);
+}
+
+.jumbotron .container {
+  position: relative;
+  z-index: 2;
+}
+
+.jumbotron p a::after {
+  content: " »";
+}
+
+/* Masthead */
+
+.masthead {
+  padding: 50px 0 40px;
+  margin-bottom: 0;
+  color: #fff;
+}
+
+.masthead h1 {
+  font-size: 120px;
+  line-height: 1;
+  letter-spacing: -2px;
 }
 
 .masthead p {
-margin-left: 5%;
-margin-right: 5%;
-font-size: 30px;
-line-height: 36px;
+  font-size: 40px;
+  font-weight: 200;
+  line-height: 1.25;
 }
 
-.red {
-  color: #149686;
+.description p {
+  font-size: 13pt;
+  line-height: 18pt;
+  font-weight: 200;
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
 }
 
-
-
-
-
-
-hr.soften {
-height: 1px;
-margin: 30px;
-background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-border: 0;
+/* Masthead links */
+.masthead-links {
+  margin: 0;
+  list-style: none;
 }
 
+.masthead-links li {
+  display: inline;
+  padding: 0 10px;
+  color: rgba(255,255,255,.25);
+}
+
+/* Social buttons */
+.bs-docs-social {
+  padding: 15px 0;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Quick links on Home */
+.bs-docs-social-buttons {
+  margin-left: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.bs-docs-social-buttons li {
+  display: inline-block;
+  padding: 5px 8px;
+  line-height: 1;
+  *display: inline;
+  *zoom: 1;
+}
+
+/* Marketing & Introduction */
+
+.marketing {
+  color: #5a5a5a;
+}
 
 .marketing h1 {
-margin: 36px 0 27px;
-font-size: 35px;
-font-weight: 300;
-text-align: center;
+  text-align: center;
+  padding: 20px 0px;
+  font-size: 46px;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: #BF3604;
+}
+
+.marketing h2 {
+  font-weight: 300;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  color: #2A5669;
+}
+
+.marketing h3 {
+  text-align: center;
+  font-weight: 300;
+  margin-bottom: 5px;
+  color: #2A5669;
 }
 
 .marketing p {
-margin-right: 10px;
-line-height: 19px;
-}
-.marketing-byline {
-margin: -18px 0 27px;
-font-size: 18px;
-font-weight: 300;
-line-height: 24px;
-color: #999;
-text-align: center;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 .marketing .bs-icon {
@@ -90,49 +210,44 @@ margin: 7px 10px 0 0;
 opacity: .8;
 }
 
-
-.marketing h2 {
-font-size: 22px;
-}
-.marketing h2, .marketing h3 {
-font-weight: 300;
-}
-
-
-.description p {
-font-size: 13pt;
-line-height: 18pt;
-font-weight: 200;
-text-align: left;
-}
-
-
-
-
-.bs-links {
-margin: 36px 0;
-}
-
-.bs-icon {
-float: left;
-margin: 7px 10px 0 0;
-opacity: .8;
-}
-
-.quick-links:first-child {
-min-height: 0;
-}
-.quick-links {
-min-height: 30px;
-margin: 0;
-padding: 5px 20px;
-list-style: none;
+.introduction h2 {
+margin-top: 27px;
 text-align: center;
-overflow: hidden;
+margin-bottom: 20px;
 }
 
-.quick-links li {
-display: inline;
-margin: 0 8px;
-color: #999;
+
+/* Misc */
+
+hr.soften {
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+  background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+  background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+  background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+  border: 0;
+}
+
+/*Footer*/
+
+.footer {
+  padding: 30px 0;
+  margin-top: 70px;
+  border-top: 1px solid #ddd;
+  background-color: #f5f5f5;
+}
+
+.footer p {
+  text-align: center;
+  margin-bottom: 0;
+  color: #777;
+}
+
+.footer-links {
+  margin: 10px 0;
+}
+
+.footer-links li {
+  display: inline;
+  margin-right: 10px;
 }

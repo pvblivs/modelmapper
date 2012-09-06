@@ -1,0 +1,5 @@
+.project
+.settings/
+core/
+extensions/
+_site/
