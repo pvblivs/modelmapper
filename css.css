@@ -178,7 +178,7 @@ h3 code {
 .marketing h1 {
   text-align: center;
   padding: 20px 0px;
-  font-size: 46px;
+  font-size: 40px;
   font-weight: 200;
   line-height: 1;
   letter-spacing: -1px;
@@ -206,7 +206,7 @@ h3 code {
 
 .marketing .bs-icon {
 float: left;
-margin: 7px 10px 0 0;
+margin: 8px 10px 0 0;
 opacity: .8;
 }
 
@@ -221,10 +221,10 @@ margin-bottom: 20px;
 
 hr.soften {
   height: 1px;
-  background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-  background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-  background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-  background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+  background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .15), transparent);
+  background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .15), transparent);
+  background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .15), transparent);
+  background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .15), transparent);
   border: 0;
 }
 
@@ -240,7 +240,7 @@ hr.soften {
 .footer p {
   text-align: center;
   margin-bottom: 0;
-  color: #777;
+  color: #5A5A5A;
 }
 
 .footer-links {
