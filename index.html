@@ -1,44 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>ModelMapper - Simple, Intelligent, Object Mapping</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Le styles -->
-		<link rel="stylesheet" href="/bootstrap.css">
-		<link rel="stylesheet" href="/css.css">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="./index.html">ModelMapper</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="./index.html">Home</a></li>
-              <li class=""><a href="./getting-started.html">Getting started</a></li>
-              <li class=""><a href="./user-manual.html">User Manual</a></li>
-              <li class=""><a href="https://github.com/jhalterman/modelmapper/issues">Issues</a></li>
-              <li class=""><a href="https://groups.google.com/forum/#!forum/modelmapper">Mailing List</a></li>
-              <li class=""><a href="jhalterman.github.com/modelmapper/javadoc/">Javadoc</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+---
+layout: default
+title: Online Writing
+---
 
     <div class="jumbotron masthead">
       <div class="container">
@@ -49,8 +12,8 @@
         </div>
 
         <p>
-          <a href="./getting-started.html" class="btn btn-orange btn-large">Getting Started</a>
-          <a href="./user-manual.html" class="btn btn-orange btn-large">User Manual</a>
+          <a href="/getting-started" class="btn btn-orange btn-large">Getting Started</a>
+          <a href="/user-manual" class="btn btn-orange btn-large">User Manual</a>
         </p>
 
         <ul class="masthead-links">
@@ -82,7 +45,7 @@
       <div class="marketing">
         <div class="introduction">
           <h2>Introduction</h2>
-          <p>You can usually tell how two objects models map to each other just by looking at them. And if you can do it, why can't your mapping tool? This is the goal of ModelMapper - to apply conventions that determine how one object model maps to another, in the same way that a human would.</p>
+          <p>When considering two object models, we can usually tell how they map to each other, just by looking at them. If we can do it, why can't your mapping tool? This is the goal of ModelMapper - to determine how one object model maps to another, based on conventions, in the same way that a human would.</p>
         </div>
 
         <hr class="soften">
@@ -91,31 +54,20 @@
 
         <div class="row-fluid">
           <div class="span4">
-            <img class="bs-icon" src="assets/intelligent.png">
+            <img class="bs-icon" src="assets/img/intelligent.png">
             <h2>Intelligent</h2>
             <p>ModelMapper analyzes your object model to intelligently determine how data should be mapped. There's no manual mapping needed. ModelMapper does most of the work for you, automatically projecting and flattening complex models.</p>
           </div>
           <div class="span4">
-            <img class="bs-icon" src="assets/arrows1.png">
+            <img class="bs-icon" src="assets/img/arrows1.png">
             <h2>Refactoring Safe</h2>
             <p>ModelMapper provides a simple, fluent mapping API for handling special use cases. The API is type-safe and refactoring-safe, using actual code, rather than string references, to map properties and values.</p>
          </div>
           <div class="span4">
-            <img class="bs-icon" src="assets/windows.png">
+            <img class="bs-icon" src="assets/img/windows.png">
             <h2>Convention Based</h2>
             <p>ModelMapper uses conventions to determine how properties and values are mapped to each other. Users can create custom conventions, or use one of the supplied conventions.</p>
           </div>
         </div>
       </div>
     </div>
-
-    <footer class="footer">
-      <div class="container">
-        <p>Copyright 2011-2012 Jonathan Halterman. Released under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>.</p>
-      </div>
-    </footer>
-
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-  </body>
-</html>

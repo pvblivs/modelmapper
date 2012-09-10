@@ -1,0 +1,23 @@
+---
+layout: post
+---
+
+  <div class="container">
+    <div class="row">
+      <div class="span3 bs-docs-sidebar">
+        <ul class="nav nav-list bs-docs-sidenav">
+          <li><a href="#setting-up-maven"><i class="icon-chevron-right"></i>Setting up Maven</a></li>
+          <li><a href="#mapping"><i class="icon-chevron-right"></i>Mapping</a></li>
+          <li><a href="#how-it-works"><i class="icon-chevron-right"></i>How it works</a></li>
+          <li><a href="#handling-mismatched-models"><i class="icon-chevron-right"></i>Handling mismatched models</a></li>
+        </ul>
+      </div>
+      <div class="span9">
+        {% capture md %}
+          {% include property-mapping.md %}
+        {% endcapture %}
+        {{ md | unindent | markdownify }}
+      </div>
+    </div>
+  </div>
+

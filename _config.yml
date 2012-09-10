@@ -5,3 +5,4 @@ exclude:
 name: ModelMapper
 baseurl: 
 auto: true
+markdown: kramdown
