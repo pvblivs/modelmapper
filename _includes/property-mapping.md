@@ -51,6 +51,146 @@ Multiple PropertyMaps may be added for the same source and destination types, so
 
 **Explicit** mappings defined in a PropertyMap will override any **implicit** mappings for the same destination properties.
 
-# More
+# Deep Mapping
 
-Read on to learn about [DeepPropertyMapping deep mapping], [SkippingProperties skipping properties], [PropertyConverters custom converters], [PropertyProviders providers] and [ConditionalMapping conditional mapping].
+This example maps the destination type's `setAge` method to the source type's `getCustomer().getAge()` method hierarchy, allowing deep mapping to occur between the source and destination methods: 
+
+{:.prettyprint .lang-java}
+	map().setAge(source.getCustomer().getAge());
+
+This example maps the destination type's `getCustomer().setName()` method hierarchy to the source type's `getPerson().getFirstName()` method hierarchy: 
+
+{:.prettyprint .lang-java}
+	map().getCustomer().setName(source.getPerson().getFirstName());
+
+**Note**: In order populate the destination object, deep mapping requires the `getCustomer` method to have a corresponding mutator, such as a `setCustomer` method or an accessible `customer` field.
+
+Deep mapping can also be performed for source properties or values whose types do not match the destination property's type:
+
+{:.prettyprint .lang-java}
+	map(source.getPerson.getAge()).setAgeString(null);
+
+**Note**: Since the `setAgeString` method requires a value we simply pass in `null` which is unused.
+
+# Skipping Properties
+
+While ModelMapper implicitly creates mappings from a source type to each property in the destination type, it may occasionally be desirable to skip the mapping of certain destination properties. 
+
+This example specifies that the destination type's `setName` method should be skipped during the mapping process:
+
+{:.prettyprint .lang-java}
+	skip().setName(null);
+
+**Note**: Since the `setName` method is skipped the `null` value is unused.
+
+# Converters
+
+Converters allow custom conversion to take place when mapping a source to a destination property. 
+
+Consider this converter, which extends AbstractConverter and converts a String to an uppercase String:
+
+{:.prettyprint .lang-java}
+	Converter<String, String> toUppercase = new AbstractConverter<String, String>() {
+	  protected String convert(String source) {
+	    return source == null ? null : source.toUppercase();
+	  }
+	};
+
+Using the `toUppercase` Converter to map from a source property to a destination property is simple:
+
+{:.prettyprint .lang-java}
+	using(toUppercase).map().setName(source.getName());
+
+Alternatively, instead of using a converter to map a source property we can create a Converter intended to map from a source _object_ to a destination property:
+
+{:.prettyprint .lang-java}
+	Converter<Person, String> toUppercase = new AbstractConverter<Person, String>() {
+	  protected String convert(Person person) {
+	    return person == null ? null : person.getFirstName();
+	  }
+	};
+
+When defining a mapping to use this converter, we simply pass the source _object_, which is of type `Person`, to the `map` method:
+
+{:.prettyprint .lang-java}
+	using(personToNameConverter).map(source).setName(null);
+
+**Note**: Since a source object is given, the `null` value passed to `setName` is unused.
+
+# Providers
+
+Providers allow allow you to provide your own instance of destination properties and types prior to mapping (see the general page on [Providers] for more info).
+
+Consider this Provider which provides `Person` instances:
+
+{:.prettyprint .lang-java}
+	Provider<Person> personProvider = new AbstractProvider<Person>() {
+	  public Person get() {
+	    return new Person();
+	  }
+	}
+
+Configuring `personProvider` to be used for a specific property mapping is simple:
+
+{:.prettyprint .lang-java}
+	withProvider(personProvider).map().setPerson(source.getPerson());
+
+When mapping takes place, `personProvider` will be called to retrieve a Person instance, which will then be mapped to the destination object's `setPerson` method.
+
+Providers can also be used with converters:
+
+{:.prettyprint .lang-java}
+	withProvider(personProvider)
+	    .using(personConverter)
+	    .map().setPerson(source.getPerson());
+
+# Conditional Mapping
+
+
+Mapping for a destination property can be made conditional by supplying a `Condition` along with the mapping.
+
+Consider this condition, which applies if the source type is not `null`:
+
+{:.prettyprint .lang-java}
+	Condition notNull = new Condition() {
+	  public boolean applies(MappingContext<?, ?> context) {
+	    return context.getSource() != null;
+	  }
+	};
+
+We can use the `notNull` Condition to specify that mapping only take place for a property if the source is not null:
+
+{:.prettyprint .lang-java}
+	when(notNull).map().setName(source.getName());
+
+In this example, mapping to `setName` will be _skipped_ if the source is not null, else mapping will proceed from the source object's `getName` method:
+
+{:.prettyprint .lang-java}
+	when(notNull).skip().setName(source.getName());
+
+Conditions can also be used with Providers and Converters:
+
+{:.prettyprint .lang-java}
+	when(someCondition)
+	    .withProvider(personProvider)
+	    .using(personConverter)
+	    .map().setPerson(source.getPerson());
+
+### Combining Conditions
+
+Conditions can be combined using boolean operators with the help of the `Conditions` class:
+
+{:.prettyprint .lang-java}
+	when(Conditions.or(isNull, isEmpty)).skip().setName(source.getName());
+	when(Conditions.and(txIsActive, inScope)).map().setRequest(source.getRequest());
+
+Alternatively, `Condition` implementations can extend `AbstractCondition` which has built in support for combining conditions:
+
+{:.prettyprint .lang-java}
+	Condition isNull = new AbstractCondition() {
+	  public boolean applies(MappingContext<?, ?> context) {
+	    return context.getSource() == null;
+	  }
+	};
+	
+	when(isNull.or(isEmpty)).skip().setName(source.getName());
