@@ -119,7 +119,7 @@ When defining a mapping to use this converter, we simply pass the source _object
 
 # Providers
 
-Providers allow allow you to provide your own instance of destination properties and types prior to mapping (see the general page on [Providers] for more info).
+Providers allow allow you to provide your own instance of destination properties and types prior to mapping (see the general page on [Providers](/user-manual/providers/) for more info).
 
 Consider this Provider which provides `Person` instances:
 

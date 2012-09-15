@@ -32,7 +32,7 @@ Providers can be configured for use in different contexts:
 
 #### By ModelMapper
 
-A provider can be configured for a `ModelMapper` instance to provide instances of _all_ destination types during the mapping process. This is particularly useful for delegating object provisioning to an IoC container (See the [Spring] and [Guice] extensions for more on this).
+A provider can be configured for a `ModelMapper` instance to provide instances of _all_ destination types during the mapping process. This is particularly useful for delegating object provisioning to an IoC container (See the [Spring](/user-manual/extensions#spring) and [Guice](/user-manual/extensions#guice) extensions for more on this).
 
 {:.prettyprint .lang-java}
 	modelMapper.getConfiguration().setProvider(delegatingProvider);

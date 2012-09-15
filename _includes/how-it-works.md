@@ -1,6 +1,11 @@
-# Matching Process
+# How It Works
 
-The matching process uses conventions configured in a `ModelMapper` or `TypeMap` to determine which source and destination properties match each other. The process works by identifying eligible properties, transforming and tokenizing their names, then using those tokens to determine source to destination matches.
+ModelMapper consists of two separate processes: the _matching process_, where a source and destination type's properties are matched to each other, and the _mapping process_ where matched property values are converted from a source to destination object. A further description of these processes follows.
+
+
+## Matching Process
+
+The matching process uses conventions [configured](/user-manual/configuration/) in a `ModelMapper` or `TypeMap` to determine which source and destination properties match each other. The process works by identifying eligible properties, transforming and tokenizing their names, then using those tokens to determine source to destination matches.
 
 ### Eligibility
 
@@ -16,11 +21,11 @@ Typically `NameTransformer` implementations will transform names according to th
 
 ### Tokenization
 
-After transformation, **NameTokenizers** are used to tokenize class and property names which are then used by the `MatchingStrategy` to determine matches.
+After transformation, **NameTokenizers** are used to tokenize class and property names for matching.
 
 ### Matching
 
-To determine whether a source and destination property hierarchy match, a **MatchingStrategy** is used, which analyzes the property and class name tokens from the source and destination sides to determine matches.
+[MatchingStrategies](/user-manual/configuration/#matching-strategies) are used to determine whether source and destination properties match based on their name and class name tokens. Different strategies can allow for more loose or strict matching of tokens.
 
 ### Handling Ambiguity
 
@@ -28,7 +33,7 @@ For matching strategies that are inexact, it is possible that multiple source pr
 
 If the ambiguity cannot be resolved, a ConfigurationException is thrown, except when the `MatchingConfiguration` is set to `ignoreAmbiguity` in which case the destination property will simply be skipped during the mapping process.
 
-# Mapping Process
+## Mapping Process
 
 The process for mapping a source to a destination object is as follows:
 

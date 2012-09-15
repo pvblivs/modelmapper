@@ -7,7 +7,7 @@ layout: post
       {% include user-manual-menu.html %}
       <div class="span9">
         {% capture md %}
-          {% include internals.md %}
+          {% include api-overview.md %}
         {% endcapture %}
         {{ md | unindent | markdownify }}
       </div>

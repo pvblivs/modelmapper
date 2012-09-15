@@ -1,14 +1,12 @@
 # Examples
 
-The following examples demonstrate usage of ModelMapper for common use cases.
+The following examples demonstrate usage of ModelMapper for common use cases. Source code for examples is [also available](https://github.com/jhalterman/modelmapper/tree/master/examples).
 
-Source code for examples is [also available](https://github.com/jhalterman/modelmapper/tree/master/examples).
+## Flattening
 
-# Flattening
+These examples demonstrate the flattening of a complex object model to a more simple model.
 
-While the usage of ModelMapper to handle any object model is the same, this example demonstrates the flattening of a complex object model to a more simple model.
-
-## Example 1
+### Flattening Example 1
 
 Consider the following complex object model:
 
@@ -58,7 +56,7 @@ We can assert that the values were mapped as expected:
 	assert dto.getBillingStreetAddress().equals(order.getBillingAddress().getStreet());
 	assert dto.getBillingCity().equals(order.getBillingAddress().getCity());
 
-## Example 2
+### Flattening Example 2
 
 Consider the following source object model:
 
@@ -84,7 +82,7 @@ We may wish to flatten `Person` to the following object:
 	  // Assume getters and setters
 	}
 
-With the default (Standard) [MatchingStrategies matching strategy], `Person.address.street` will not match `PersonDTO.street` and `Person.address.city` will not match `PersonDTO.city` since the expected `address` token is not present on the destination side. To solve this we have two options:
+With the default (Standard) [matching strategy](/configuration/#matching-strategies), `Person.address.street` will not match `PersonDTO.street` and `Person.address.city` will not match `PersonDTO.city` since the expected `address` token is not present on the destination side. To solve this we have two options:
 
 ### Option 1: Create a PropertyMap
 
@@ -102,7 +100,7 @@ A PropertyMap allows us to create explicit mappings for `street` and `city` betw
 
 ### Option 2: Use the Loose Matching Strategy
 
-While the default Standard [MatchingStrategies matching strategy] will not match source and destination properties that are missing a name token, the Loose matching strategy will match properties so long as the _last_ destination property name in the hierarchy is matched. In this case the last destination property name tokens are `street` and `city` which we can expect a match for since they are present on the source side.
+While the default Standard [matching strategy](/configuration/#matching-strategies) will not match source and destination properties that are missing a name token, the Loose matching strategy will match properties so long as the _last_ destination property name in the hierarchy is matched. In this case the last destination property name tokens are `street` and `city` which we can expect a match for since they are present on the source side.
 
 Configuring the Loose matching strategy to be used is simple:
 
@@ -119,11 +117,11 @@ After loading a PropertyMap or setting the Loose matching strategy, we can perfo
 	assert dto.getStreet().equals(person.getAddress().getStreet());
 	assert dto.getCity().equals(person.getAddress().getCity());
 
-# Projection
+## Projection
 
-While the usage of ModelMapper to handle any object model is the same, this example demonstrates the projection of a simple object model to a more complex model.
+These examples demonstrates the projection of a simple object model to a more complex model.
 
-## Example 1 
+### Projection Example 1 
 
 Consider the following simple model:
 
@@ -165,7 +163,7 @@ We can then assert that `OrderInfo.customerName` was mapped to `Order.customer.n
 	assert order.getCustomer().getName().equals(orderInfo.getCustomerName());
 	assert order.getAddress().getStreet().equals(orderInfo.getStreetAddress());
 
-## Example 2
+### Projection Example 2
 
 Consider the following simple model:
 
@@ -191,7 +189,7 @@ We may need to map this to a different object model:
 	  private String city;
 	}
 
-With the default (Standard) [MatchingStrategies matching strategy], `OrderDTO.street` will not match `Order.address.street` and `OrderDTO.city` will not match `Order.address.city` since the expected `address` is not present on the source side. To solve this we have two options:
+With the default (Standard) [matching strategy](/configuration/#matching-strategies), `OrderDTO.street` will not match `Order.address.street` and `OrderDTO.city` will not match `Order.address.city` since the expected `address` is not present on the source side. To solve this we have two options:
 
 ### Option 1: Create a PropertyMap
 
@@ -209,7 +207,7 @@ A PropertyMap allows us to create explicit mappings for `street` and `city`:
 
 ### Option 2: Use the Loose Matching Strategy
 
-While the default Standard [MatchingStrategies matching strategy] will not match source and destination properties that are missing a name token, the Loose matching strategy will match properties so long as the _last_ destination property name in the hierarchy is matched. In this case the last destination property name tokens are `street` and `city` which we can expect a match for since they are present on the source side.
+While the default Standard [matching strategy](/configuration/#matching-strategies) will not match source and destination properties that are missing a name token, the Loose matching strategy will match properties so long as the _last_ destination property name in the hierarchy is matched. In this case the last destination property name tokens are `street` and `city` which we can expect a match for since they are present on the source side.
 
 Configuring the Loose matching strategy to be used is simple:
 
