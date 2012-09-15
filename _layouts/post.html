@@ -20,7 +20,10 @@
   <body data-spy="scroll" data-target=".bs-docs-sidebar">
 
 {% include header.html %}
-{{ content }}
+<div class="wrapper">
+  {{ content }}
+  <div class="push"><!--//--></div>
+</div>
 {% include footer.html %}
 
     <!-- Placed at the end of the document so the pages load faster -->

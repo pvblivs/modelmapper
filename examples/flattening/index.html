@@ -4,10 +4,10 @@ layout: post
 
   <div class="container">
     <div class="row">
-      {% include user-manual-menu.html %}
+      {% include examples-menu.html %}
       <div class="span9">
         {% capture md %}
-          {% include user-manual.md %}
+          {% include flattening-example.md %}
         {% endcapture %}
         {{ md | unindent | markdownify }}
       </div>

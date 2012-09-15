@@ -12,7 +12,7 @@ If validation fails, a `ValidationException` will be thrown with a helpful messa
 
 To resolve a validation error resulting from an unmatched destination, you have two options:
 
-  * Create a [PropertyMapping mapping] that maps or ignores any unmatched properties
-  * Adjust [Configuration configuration] to try and match any unmatched properties
+  * Create a [mapping](/user-manual/property-mapping) that maps or ignores any unmatched properties
+  * Adjust [configuration](/user-manual/configuration) to try and match any unmatched properties
 
 Alternatively, it may be acceptable to do nothing, in which case any unmatched destination properties will simply be skipped during the mapping process.

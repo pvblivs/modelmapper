@@ -12,10 +12,9 @@ h3 code {
 
 /* Navbar */
 
-/*body > .navbar {
-  font-size: 13px;
+.sidenav {
+  padding: 20px;
 }
-*/
 
 /* Jumbotron */
 
@@ -305,7 +304,7 @@ hr.soften {
 
 .footer {
   padding: 30px 0;
-  margin-top: 70px;
+  /* margin-top: 70px; */
   border-top: 1px solid #ddd;
   background-color: #f5f5f5;
 }

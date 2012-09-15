@@ -9,9 +9,9 @@ Field matching|Indicates whether fields are eligible for matching|disabled
 Naming convention|Determines which methods and fields are eligible for matching based on name|JavaBeans
 Name transformer|Transforms eligible property and class names prior to matching|JavaBeans
 Name tokenizer|Tokenizes source and destination property names prior to matching|Camel Case
-[MatchingStrategies Matching strategy]|Determines how source and destination properties are matched|Standard
+[Matching strategy](#matching-strategies)|Determines how source and destination properties are matched|Standard
 
-You can read about how this configuration is used during the [MatchingProcess matching process].
+You can read about how this configuration is used during the [matching process](/user-manual/internals/#matching-process).
 
 ### Default Configuration
 
@@ -21,41 +21,36 @@ Default configuration uses the *Standard* matching strategy to match only *publi
 
 Adjusting configuration for certain matching requirements is simple. This example configures a `ModelMapper` to allow `protected` methods to be matched:
 
-```
-modelMapper.getConfiguration()
-  .setMethodAccessLevel(AccessLevel.PROTECTED);
-```
+{:.prettyprint .lang-java}
+	modelMapper.getConfiguration()
+	  .setMethodAccessLevel(AccessLevel.PROTECTED);
 
 This example configures a `ModelMapper` to allow private fields to be matched:
 
-```
-modelMapper.getConfiguration()
-  .enableFieldMatching(true)
-  .setFieldAccessLevel(AccessLevel.PRIVATE);
-```
+{:.prettyprint .lang-java}
+	modelMapper.getConfiguration()
+	  .enableFieldMatching(true)
+	  .setFieldAccessLevel(AccessLevel.PRIVATE);
 
 This example configures a `ModelMapper` to use the `Loose` [MatchingStrategies matching strategy]:
 
-```
-modelMapper.getConfiguration()
-  .setMatchingStrategy(MatchingStrategies.LOOSE);
-```
+{:.prettyprint .lang-java}
+	modelMapper.getConfiguration()
+	  .setMatchingStrategy(MatchingStrategies.LOOSE);
 
 This example configures a `ModelMapper` to allow any source and destination property names to be eligible for matching:
 
-```
-modelMapper.getConfiguration()
-  .setSourceNamingConvention(NamingConventions.NONE);
-  .setDestinationNamingConvention(NamingConventions.NONE);
-```
+{:.prettyprint .lang-java}
+	modelMapper.getConfiguration()
+	  .setSourceNamingConvention(NamingConventions.NONE);
+	  .setDestinationNamingConvention(NamingConventions.NONE);
 
 This example configures a `ModelMapper` to use a `Pascal Case` name tokenizer for source and destination properties:
 
-```
-modelMapper.getConfiguration();
-  .setSourceNameTokenizer(pascalCaseTokenizer);
-  .setDestinationNameTokenizer(pascalCaseTokenizer);
-```
+{:.prettyprint .lang-java}
+	modelMapper.getConfiguration();
+	  .setSourceNameTokenizer(pascalCaseTokenizer);
+	  .setDestinationNameTokenizer(pascalCaseTokenizer);
 
 ### Available Conventions
 
@@ -73,4 +68,36 @@ Convention|Description
 `MatchingStrategies.LOOSE`|Loosely matches source and destination properties
 `MatchingStrategies.STRICT`|Strictly matches source and destination properties
 
-The [MatchingStrategies Matching Strategies] page provides more details about how each of the matching strategies work.
+# Matching Strategies
+
+Matching strategies are used during the [matching process](/user-manual/internals/#matching-process) to match source and destination properties to each other. Below is a description of each strategy.
+
+### Standard
+
+The Standard matching strategy allows for source properties to be intelligently matched to destination properties, requiring that _all_ destination properties be matched and all source property names have at least one token matched. The following rules apply: 
+
+  * Tokens can be matched in _any_ order 
+  * _All_ destination property name tokens must be matched 
+  * _All_ source property names must have at least _one_ token matched
+
+The standard matching strategy is configured by default, and while it is not exact, it is ideal to use in most scenarios.
+
+### Loose
+
+The Loose matching strategy allows for source properties to be loosely matched to destination properties by requiring that _only_ the last destination property in a hierarchy be matched. The following rules apply: 
+
+  * Tokens can be matched in _any_ order 
+  * The last destination property name must have _all_ tokens matched 
+  * The last source property name must have at least _one_ token matched
+
+The loose matching strategy is ideal to use for source and destination object models with property hierarchies that are very dissimilar. It may result in a higher level of ambiguous matches being detected, but for well-known object models it can be a quick alternative to defining [mappings](/user-manual/property-mapping).
+
+### Strict
+
+The strict matching strategy allows for source properties to be strictly matched to destination properties. This strategy allows for complete matching accuracy, ensuring that no mismatches or ambiguity occurs. But it requires that property name tokens on the source and destination side match each other precisely. The following rules apply: 
+
+  * Tokens are matched in _strict_ order 
+  * _All_ destination property name tokens must be matched 
+  * _All_ source property names must have _all_ tokens matched 
+
+The strict matching strategy is ideal to use when you want to ensure that no ambiguity or unexpected mapping occurs without having to inspect a `TypeMap`. The drawback is that the strictness may result in some destination properties remaining unmatched.
