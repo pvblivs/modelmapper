@@ -20,7 +20,7 @@ layout: post
         {% capture md %}
           {% include examples.md %}
         {% endcapture %}
-        {{ md | unindent | markdownify }}
+        {{ md | replace_first: '       ', '' | markdownify }}
       </div>
     </div>
   </div>
