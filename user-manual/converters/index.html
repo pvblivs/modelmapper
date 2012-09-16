@@ -6,10 +6,10 @@ layout: default
     <div class="row">
       {% include user-manual-menu.html %}
       <div class="span9">
-        {% capture md %}
-          {% include converters.md %}
-        {% endcapture %}
-        {{ md | unindent | markdownify }}
+{% capture md %}
+{% include converters.md %}
+{% endcapture %}
+        {{ md | markdownify }}
       </div>
     </div>
   </div>

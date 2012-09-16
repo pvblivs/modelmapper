@@ -17,10 +17,10 @@ layout: default
         </ul>
       </div>
       <div class="span9">
-        {% capture md %}
-          {% include examples.md %}
-        {% endcapture %}
-        {{ md | replace_first: '       ', '' | markdownify }}
+{% capture md %}
+{% include examples.md %}
+{% endcapture %}
+        {{ md | markdownify }}
       </div>
     </div>
   </div>

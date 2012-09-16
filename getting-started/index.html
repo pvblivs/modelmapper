@@ -19,10 +19,10 @@ layout: default
         </ul>
       </div>
       <div class="span9">
-        {% capture md %}
-          {% include getting-started.md %}
-        {% endcapture %}
-        {{ md | unindent | markdownify }}
+{% capture md %}
+{% include getting-started.md %}
+{% endcapture %}
+        {{ md | markdownify }}
       </div>
     </div>
   </div>

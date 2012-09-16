@@ -7,9 +7,9 @@ layout: default
       {% include user-manual-menu.html %}
       <div class="span9">
         {% capture md %}
-          {% include api-overview.md %}
-        {% endcapture %}
-        {{ md | unindent | markdownify }}
+{% include api-overview.md %}
+{% endcapture %}
+{{ md | markdownify }}
       </div>
     </div>
   </div>
