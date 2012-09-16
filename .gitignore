@@ -1,7 +1,9 @@
+.classpath
 .project
 .settings/
 core/
 extensions/
+!user-manual/extensions/
 _site/
 target/
 docs/
