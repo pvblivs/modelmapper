@@ -11,7 +11,7 @@ Name transformer|Transforms eligible property and class names prior to matching|
 Name tokenizer|Tokenizes source and destination property names prior to matching|Camel Case
 [Matching strategy](#matching-strategies)|Determines how source and destination properties are matched|Standard
 
-You can read about how this configuration is used during the [matching process](/user-manual/internals/#matching-process).
+You can read about how this configuration is used during the [matching process](/user-manual/how-it-works/#matching-process).
 
 ### Default Configuration
 
@@ -70,7 +70,7 @@ Convention|Description
 
 # Matching Strategies
 
-Matching strategies are used during the [matching process](/user-manual/internals/#matching-process) to match source and destination properties to each other. Below is a description of each strategy.
+Matching strategies are used during the [matching process](/user-manual/how-it-works/#matching-process) to match source and destination properties to each other. Below is a description of each strategy.
 
 ### Standard
 
