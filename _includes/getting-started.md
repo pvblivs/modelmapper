@@ -73,7 +73,7 @@ When the `map` method is called, the _source_ and _destination_ types are analyz
 
 ### Handling Mismatches
 
-While ModelMapper will do its best to automatically match source and destination properties for you, more complex use cases may require _explicit_ mappings to be created. This can be done via the [Property Mapping](/user-manual/property-mapping) API.
+While ModelMapper will do its best to automatically match source and destination properties for you, more complex use cases may require _explicit_ mappings to be created. This can be done via the [mapping API](/user-manual/property-mapping).
 
 Alternatively, [configuration](/user-manual/configuration) can be adjusted to allow different properties to match each other based on naming, accessibility and other conventions.
 
