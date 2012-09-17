@@ -21,7 +21,7 @@ Let's try mapping some objects. Consider the following object model:
 
 {:.prettyprint .lang-java}
 	// Assume getters and setters on each class
-
+	
 	class Order {
 	  private Customer customer;
 	  private Address billingaddress;
@@ -62,20 +62,21 @@ We can check that properties are mapped as expected:
 	assert orderDTO.getBillingStreet().equals(order.getBillAddress().getStreet());
 	assert orderDTO.getBillingCity().equals(order.getBillAddress().getCity());
 
-Similarly, mapping the other direction works as expected with zero configuration:
+Similarly, mapping in the other direction works as expected with zero configuration:
 
 {:.prettyprint .lang-java}
     Order order = modelMapper.map(orderDTO, Order.class);
 
 ### How It Works
 
-When the `map` method is called, the source and destination types are analyzed to determine which properties match each other based on current [configuration](/user-manual/configuration). Data is then mapped according to these matches.
+When the `map` method is called, the _source_ and _destination_ types are analyzed to determine which properties match each other based on current [configuration](/user-manual/configuration). Data is then mapped according to these matches.
 
 ### Handling Mismatches
 
-For properties that cannot be matched automatically:
+While ModelMapper will do its best to automatically match source and destination properties for you, more complex use cases may require _explicit_ mappings to be created. This can be done via the [Property Mapping](/user-manual/property-mapping) API.
 
- * ModelMapper's [Property Mapping](/user-manual/property-mapping) API can be used to define explicit mappings
- * [Configuration](/user-manual/configuration) can be adjusted to allow different properties to match each other based on naming, accessibility and other conventions 
+Alternatively, [configuration](/user-manual/configuration) can be adjusted to allow different properties to match each other based on naming, accessibility and other conventions.
+
+### Validating Matches
 
 [Validation](/user-manual/validation) can be performed to ensure that all destination properties are mapped as expected.
