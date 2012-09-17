@@ -17,26 +17,65 @@ Otherwise you can [download](https://github.com/jhalterman/modelmapper/downloads
 
 ### Mapping
 
-To perform an object mapping, simply instantiate the `ModelMapper` class and call the `map` method, passing in a <i>source</i> object to map from along with the <i>destination</i> type you want to map to:
+Let's try mapping some objects. Consider the following object model:
 
 {:.prettyprint .lang-java}
-    ModelMapper modelMapper = new ModelMapper();
-    PersonDTO personDTO = modelMapper.map(person, PersonDTO.class);
+	// Assume getters and setters on each class
 
-You can also map a source to an existing destination object:
+	class Order {
+	  private Customer customer;
+	  private Address billingaddress;
+	}
+	
+	class Customer {
+	  Name name;
+	}
+	
+	class Name {
+	  String firstName;
+	  String lastName;
+	}
+	
+	class Address {
+	  String street;
+	  String city;
+	}
+	
+	class OrderDTO {
+	  String customerFirstName;
+	  String customerLastName;
+	  String billingStreet;
+	  String billingCity;
+	}
+
+Mapping an `order` to an `OrderDTO` is simple and requires _zero_ configuration:
 
 {:.prettyprint .lang-java}
-    modelMapper.map(person, existingPersonDTO);
+	ModelMapper modelMapper = new ModelMapper();
+	OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
+
+We can check that properties are mapped as expected:
+
+{:.prettyprint .lang-java}
+	assert orderDTO.getCustomerFirstName().equals(order.getCustomer().getName().getFirstName());
+	assert orderDTO.getCustomerLastName().equals(order.getCustomer().getName().getLastName());
+	assert orderDTO.getBillingStreet().equals(order.getBillAddress().getStreet());
+	assert orderDTO.getBillingCity().equals(order.getBillAddress().getCity());
+
+Similarly, mapping the other direction works as expected with zero configuration:
+
+{:.prettyprint .lang-java}
+    Order order = modelMapper.map(orderDTO, Order.class);
 
 ### How It Works
 
-When the `map` method is called, the source and destination types are analyzed to determine which properties match each other based on current [configuration](/user-manual/configuration). Data is then mapped according to these matches. For more details on how matching and mapping works, check out the [related section](/user-manual/how-it-works/) in the user manual.
+When the `map` method is called, the source and destination types are analyzed to determine which properties match each other based on current [configuration](/user-manual/configuration). Data is then mapped according to these matches.
 
 ### Handling Mismatches
 
 For properties that cannot be matched automatically:
 
- * The [Property Mapping](/user-manual/property-mapping) API can be used to define explicit mappings
- * [Configuration](/user-manual/configuration) can be adjusted to allow different properties to match each other based on naming, accessibility and other conventions
+ * ModelMapper's [Property Mapping](/user-manual/property-mapping) API can be used to define explicit mappings
+ * [Configuration](/user-manual/configuration) can be adjusted to allow different properties to match each other based on naming, accessibility and other conventions 
 
 [Validation](/user-manual/validation) can be performed to ensure that all destination properties are mapped as expected.
