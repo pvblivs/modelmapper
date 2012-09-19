@@ -8,7 +8,6 @@ Converters can be implemented in two ways. The first is by extending `AbstractCo
 
 {:.prettyprint .lang-java}
 	Converter<String, String> toUppercase = new AbstractConverter<String, String>() {
-	  @Override
 	  protected String convert(String source) {
 	    return source == null ? null : source.toUppercase();
 	  }
@@ -18,7 +17,6 @@ The second way is by implementing the `Converter` interface which exposes a `Map
 
 {:.prettyprint .lang-java}
 	Converter<String, String> toUppercase = new Converter<String, String>() {
-	  @Override
 	  public String convert(MappingContext<String, String> context) {
 	    return context.getSource() == null ? null : context.getSource().toUppercase();
 	  }

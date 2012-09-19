@@ -8,7 +8,6 @@ To start, extend PropertyMap, supplying type arguments to represent the source t
 
 {:.prettyprint .lang-java}
 	public class PersonMap extends PropertyMap<Person, PersonDTO>() {
-	  @Override
 	  protected void configure() {
 	    map().setName(source.getFirstName());
 	  }

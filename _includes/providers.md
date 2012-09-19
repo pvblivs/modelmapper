@@ -8,7 +8,6 @@ Providers can be implemented in two ways. The first is by extending AbstractProv
 
 {:.prettyprint .lang-java}
 	Provider<Person> personProvider = new AbstractProvider<Person>() {
-	  @Override
 	  public Person get() {
 	    return new Person();
 	  }
@@ -18,7 +17,6 @@ The second way is by implementing the `Provider` interface which exposes a `Prov
 
 {:.prettyprint .lang-java}
 	Provider<Object> delegatingProvider = new Provider<Object>() {
-	  @Override
 	  public Object get(ProvisionRequest<Object> request) {
 	    return SomeFactory.getInstance(request.getRequestedType());
 	  }
