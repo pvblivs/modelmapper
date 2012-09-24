@@ -10,7 +10,7 @@ If you're a Maven user just add the `modelmapper` library as a dependency:
 	<dependency>
 	  <groupId>org.modelmapper</groupId>
 	  <artifactId>modelmapper</artifactId>
-	  <version>0.5.0</version>
+	  <version>0.5.1</version>
 	</dependency>
 
 Otherwise you can [download](https://github.com/jhalterman/modelmapper/downloads) the latest ModelMapper jar and add it to your classpath.
