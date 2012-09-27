@@ -5,6 +5,8 @@ test-output/
 release.properties
 .project
 .classpath
+*.iml
+.idea/
 .settings/
 _site/
 user-manual/
